@@ -6,10 +6,17 @@
                 <span class="badge-collection"></span>
                 <span class="collapsed-title"><!--ko text: short_name --><!--/ko--> - <!--ko text: version_id --><!--/ko--></span>
                 <span>
-                  <a href="#" class="button icon-button info-icon" title="More details" data-bind="visible: !visible(), click: $root.datasets.toggleVisibleDataset">
+                  <a href="#" class="button icon-button info-icon" title="More details" data-bind="attr:{id: id}">
                     <i class="fa fa-chevron-circle-right"></i>
                   </a>
                 </span>
+                <div class="detail-flyout hide" data-bind="attr:{id: id + '-flyout'}">
+                  <p>test1</p>
+                  <p>test2</p>
+                  <p>test3</p>
+                  <p>test4</p>
+                  <p>test5</p>
+                </div>
               </div>
 
 
@@ -27,7 +34,7 @@
                 </a>
                 <!-- /ko -->
                 <a href="#" class="button icon-button add-to-project" data-pulse="#project-count"
-                   class="button icon-button add-to-project" data-pulse="#project-count" data-bind="visible: !$root.project.hasDataset($data), click: $root.ui.projectList.toggleDataset, onmouseenter: $root.ui.projectList.toggleProjectTooltip">
+                   class="button icon-button add-to-project" data-pulse="#project-count" data-bind="visible: !$root.project.hasDataset($data), click: $root.ui.projectList.toggleDataset">
                   <i class="fa fa-plus-circle"></i>
                 </a>
                 <a href="#" class="button icon-button button-active" data-pulse="#project-count" title="Remove dataset from the current project"

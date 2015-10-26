@@ -313,6 +313,22 @@ $panel-list-thumbnail-size: $panel-list-item-height - 61px;
   }
 }
 
+.detail-flyout {
+  position: fixed;
+  float: right;
+  z-index: 999;
+  left: 230px;
+  width: 400px;
+  font-size: .8em;
+  padding: 1em;
+  background-color: #0c0c0c;
+  color: #fff;
+
+  h4 {
+    margin: 0 0 .5em;
+  }
+}
+
 .panel-list-footer {
   background: #2A2C2E;
   position: absolute;

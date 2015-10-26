@@ -66,6 +66,15 @@ do (document
   $(document).on 'mouseout', 'a.add-to-project', (e) ->
     $('.add-to-project-tooltip').addClass('hide')
 
+  $(document).on 'click', 'a.info-icon', (e) ->
+    flyout = $("#" + this.id + "-flyout")
+    if flyout.hasClass('hide')
+      flyout.css('left', $(this).offset().left + 28)
+      flyout.css('top', $(this).offset().top)
+      flyout.removeClass('hide')
+    else
+      flyout.addClass('hide')
+
   $(document).ready ->
     map = $('#map').data('map')?.map
     if map?
