@@ -15,9 +15,10 @@
     color: $overlay-heading-font-color;
 
     h2 {
-      font-size: 1.4em;
+      color: #FFFFFF;
       margin: 0;
-      font-weight: 200;
+      font-size: 1em;
+      font-weight: bold;
     }
 
     &.with-options {
@@ -48,24 +49,14 @@
 .master-overlay-parent {
   background-color: $master-overlay-parent-bg-color;
   width: $facet-overlay-width;
+  border-right: 1px solid #414445;
   left: 0;
-
-  header {
-    margin: 1em 1em 0 .5em;
-
-    h2 {
-      color: #FFFFFF;
-      margin: 0;
-      font-size: 1em;
-      font-weight: bold;
-    }
-  }
 }
 
 // The main section in the overlay.  Dataset results, pinned datasets, whatnot.
 .master-overlay-main {
   background-color: $master-overlay-main-bg-color;
-  width: 40%;
+  width: $collapsed-overlay-width;
   left: $facet-overlay-width;
   overflow: hidden;
 }
@@ -216,8 +207,9 @@
 
 // Scrollable content area
 .master-overlay-content {
-  padding: .5em 1em 1em 1em;
-  height: 80%;
+  padding-top: 11px;
+//  padding: .5em 1em 1em 1em;
+//  height: 80%;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
@@ -306,7 +298,7 @@ a.master-overlay-back:hover:before, a.master-overlay-show-parent:hover:before {
 $browser-split: 1550px;
 $parent-split: 1200px;
 
-$main-width: $browser-split * 0.4;
+$main-width: $collapsed-overlay-width;
 $parent-width: $parent-split * 0.21;
 
 @media (min-width: $browser-split) {

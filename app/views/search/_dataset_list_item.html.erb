@@ -1,60 +1,22 @@
             <li data-bind="click: $root.ui.datasetsList.focusDataset, css: {'master-overlay-forward': has_granules, 'master-overlay-hide-parent': has_granules}"
                 class="panel-list-item"<%=raw ' draggable="true"' if is_project %>>
+
+              <div class="panel-list-header">
+                <span class="active-indicator"></span>
+                <span class="badge-collection"></span><span><!--ko text: short_name --><!--/ko--> - <!--ko text: version_id --><!--/ko--></span>
+                <span>
+                  <a href="#" class="button icon-button info-icon" title="More details" data-bind="visible: !visible(), click: $root.datasets.toggleVisibleDataset">
+                    <i class="fa fa-chevron-circle-right"></i>
+                  </a>
+                </span>
+              </div>
+
+
               <% if is_project %>
               <div class="panel-list-drag-handle"></div>
               <% end %>
-              <div class="panel-list-thumbnail-container">
-                <div class="panel-list-badges">
-                  <!-- ko if: gibs() -->
-                  <a href="#" class="badge badge-gibs" data-tooltip="true" title="Supports advanced map visualizations using the GIBS tile service"></a>
-                  <!-- /ko -->
-                  <!-- ko if: opendap() -->
-                  <a href="#" class="badge badge-opendap" data-tooltip="true" title="Supports spatial and parameter subsetting using OPeNDAP"></a>
-                  <!-- /ko -->
-                  <!-- ko if: nrt -->
-                  <a href="#" class="badge badge-nrt" data-tooltip="true" title="Near Real Time (NRT) Data"></a>
-                  <!-- /ko -->
-                </div>
-              <!-- ko if: thumbnail() -->
-              <img class="panel-list-thumbnail" data-bind="attr: {src: thumbnail(), alt: dataset_id}">
-              <!-- /ko -->
-              <!-- ko ifnot: thumbnail() -->
-              <div class="panel-list-thumbnail panel-list-thumbnail-placeholder">
-                <i class="fa fa-globe"></i><br />No image available
-              </div>
-              <!-- /ko -->
-              </div>
-              <h3 data-bind="text: dataset_id"></h3>
-
-              <p>
-                <span class="panel-list-details" <% if is_project %>data-bind="style: {'background-color': $root.project.colorForDataset($data)}"<% end %>>
-                  <span data-bind="text: short_name"></span>
-                  <!-- ko if: $data.version_id && $data.version_id !== 'Undefined' -->
-                  v<span data-bind="text: version_id"></span>
-                  <!-- /ko -->
-                  <!-- ko if: $data.archive_center -->
-                  - <span data-bind="text: archive_center"></span>
-                  <!-- /ko -->
-                </span>
-              </p>
-
-              <p class="dataset-granules-info panel-list-comparison-details">
-                <span data-bind="text: timeRange"></span>
-                <!-- ko if: granuleDescription -->
-                <span class="panel-list-granule-description" data-bind="text: granuleDescription"></span>
-                <!-- /ko -->
-                <span data-bind="if: granulesModel.loadTime()" class="panel-list-muted">
-                  in <span data-bind="text: granulesModel.loadTime">0.000</span>s
-                </span>
-              </p>
 
               <div class="panel-list-item-actions">
-                <!-- ko if: $root.ui.datasetsList.canQueryDatasetSpatial($data) -->
-                <a href="#" class="button icon-button" title="Search using this dataset's location"
-                   data-bind="css: {'button-active': $root.query.spatial() == spatial_constraint()}, click: $root.ui.datasetsList.toggleQueryDatasetSpatial">
-                  <i class="fa fa-map-marker"></i>
-                </a>
-                <!-- /ko -->
                 <!-- ko if: has_granules -->
                 <a href="#" class="button icon-button" title="View dataset" data-bind="visible: !visible(), click: $root.datasets.toggleVisibleDataset">
                   <i class="fa fa-eye"></i>
@@ -63,6 +25,14 @@
                   <i class="fa fa-eye"></i>
                 </a>
                 <!-- /ko -->
+                <a href="#" class="button icon-button add-to-project" data-pulse="#project-count"
+                   data-bind="visible: !$root.project.hasDataset($data), click: $root.ui.projectList.toggleDataset, onmouseenter: $root.ui.projectList.toggleProjectTooltip">
+                  <i class="fa fa-plus-circle"></i>
+                </a>
+                <a href="#" class="button icon-button button-active" data-pulse="#project-count" title="Remove dataset from the current project"
+                   data-bind="visible: $root.project.hasDataset($data), click: $root.ui.projectList.toggleDataset">
+                  <i class="fa fa-minus-circle"></i>
+                </a>
                 <a href="#" class="button icon-button master-overlay-forward" data-master-overlay-forward="Datasets" data-bind="click: $parent.ui.datasetsList.showDatasetDetails" title="View dataset details">
                   <i class="fa fa-info-circle"></i>
                 </a>
@@ -84,13 +54,11 @@
                   </a>
                   <!-- /ko -->
                 <% end %>
-                <a href="#" class="button icon-button add-to-project" data-pulse="#project-count" title="Add dataset to the current project"
-                   data-bind="visible: !$root.project.hasDataset($data), click: $root.ui.projectList.toggleDataset">
-                  <i class="fa fa-plus"></i>
+                <!-- ko if: $root.ui.datasetsList.canQueryDatasetSpatial($data) -->
+                <a href="#" class="button icon-button" title="Search using this dataset's location"
+                   data-bind="css: {'button-active': $root.query.spatial() == spatial_constraint()}, click: $root.ui.datasetsList.toggleQueryDatasetSpatial">
+                  <i class="fa fa-map-marker"></i>
                 </a>
-                <a href="#" class="button icon-button button-active" data-pulse="#project-count" title="Remove dataset from the current project"
-                   data-bind="visible: $root.project.hasDataset($data), click: $root.ui.projectList.toggleDataset">
-                  <i class="fa fa-minus"></i>
-                </a>
+                <!-- /ko -->
               </div>
             </li>

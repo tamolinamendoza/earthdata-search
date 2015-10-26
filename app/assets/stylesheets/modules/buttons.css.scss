@@ -76,6 +76,47 @@
   }
 }
 
+@mixin dark-panel-list-item-action-icon {
+  background: #2c3e50;
+  color: #ccd2d6;
+  margin-top: 1px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &.button-disabled {
+    color: #aaa;
+    cursor: default;
+  }
+
+  &.button-disabled:hover {
+    background: #ddd;
+    //    border: 1px solid transparent;
+  }
+
+  &.button-active {
+    background: #27AE60;
+    color: #ffffff;
+  }
+
+  &:hover {
+    background: #27AE60;
+    //    border: 1px solid #27AE60;
+    color: #ffffff;
+  }
+
+  &.button-active:hover {
+    background: #27AE60;
+    color: #ffffff;
+  }
+
+  &.button-highlighted {
+    box-shadow: 0 0 5px #27AE60;
+    //    border-color: #27AE60;
+  }
+}
+
 .button, input[type="button"], input[type="reset"], input[type="submit"], button {
   text-decoration: none;
   display: inline-block;
@@ -90,8 +131,8 @@
 }
 
 .icon-button {
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   text-align: center;
 
   &:hover {
@@ -203,4 +244,18 @@ $feedback-button-hover-color: lighten($feedback-button-color, 10%);
   &:hover {
     background: $feedback-button-hover-color;
   }
+}
+
+.button.icon-button.add-to-project {
+  &:hover {
+    background: #F1C40F;
+  }
+}
+
+.info-icon {
+  width: 29px;
+  height: 29px;
+  position: absolute;
+  right: 3px;
+  top: 0;
 }

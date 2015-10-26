@@ -36,8 +36,21 @@ $toolbar-accent-border: #236d9e;
 // Master Overlay
 $master-overlay-parent-bg-color: #191A1B;
 $master-overlay-parent-on-main-bg-color: transparentize(#111, .3); // Used when drawing parent overlapping main
-$master-overlay-main-bg-color: transparentize(#111, .1);
-$overlay-heading-font-color: #c9c9c9;
+$master-overlay-main-bg-color: transparentize(#000200, .1);
+$overlay-heading-font-color: #ffffff;
 
 // Facet Overlay
 $facet-overlay-width: 270px;
+
+// Collapsed overlay
+$collapsed-overlay-width: $facet-overlay-width;
+
+$master-overlay-header-background-color: #2980B9;
+
+
+// Responsive related
+$browser-split: 1550px;
+$parent-split: 1200px;
+
+$main-width: 510px;
+$parent-width: 210px;

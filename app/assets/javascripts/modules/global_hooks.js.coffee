@@ -57,6 +57,15 @@ do (document
     $('.description-toggle').find('i').toggleClass('fa-chevron-down')
     $('.description-toggle').find('i').toggleClass('fa-chevron-up')
 
+  $(document).on 'mouseover', 'a.add-to-project', (e) ->
+    tooltip = $('.add-to-project-tooltip')
+    tooltip.css('left', $(this).offset().left + 23)
+    tooltip.css('top', $(this).offset().top)
+    tooltip.removeClass('hide')
+
+  $(document).on 'mouseout', 'a.add-to-project', (e) ->
+    $('.add-to-project-tooltip').addClass('hide')
+
   $(document).ready ->
     map = $('#map').data('map')?.map
     if map?
