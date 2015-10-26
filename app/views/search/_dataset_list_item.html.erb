@@ -1,9 +1,10 @@
             <li data-bind="click: $root.ui.datasetsList.focusDataset, css: {'master-overlay-forward': has_granules, 'master-overlay-hide-parent': has_granules}"
                 class="panel-list-item"<%=raw ' draggable="true"' if is_project %>>
 
-              <div class="panel-list-header">
+              <div class="panel-list-item-header">
                 <span class="active-indicator"></span>
-                <span class="badge-collection"></span><span><!--ko text: short_name --><!--/ko--> - <!--ko text: version_id --><!--/ko--></span>
+                <span class="badge-collection"></span>
+                <span class="collapsed-title"><!--ko text: short_name --><!--/ko--> - <!--ko text: version_id --><!--/ko--></span>
                 <span>
                   <a href="#" class="button icon-button info-icon" title="More details" data-bind="visible: !visible(), click: $root.datasets.toggleVisibleDataset">
                     <i class="fa fa-chevron-circle-right"></i>
@@ -26,7 +27,7 @@
                 </a>
                 <!-- /ko -->
                 <a href="#" class="button icon-button add-to-project" data-pulse="#project-count"
-                   data-bind="visible: !$root.project.hasDataset($data), click: $root.ui.projectList.toggleDataset, onmouseenter: $root.ui.projectList.toggleProjectTooltip">
+                   class="button icon-button add-to-project" data-pulse="#project-count" data-bind="visible: !$root.project.hasDataset($data), click: $root.ui.projectList.toggleDataset, onmouseenter: $root.ui.projectList.toggleProjectTooltip">
                   <i class="fa fa-plus-circle"></i>
                 </a>
                 <a href="#" class="button icon-button button-active" data-pulse="#project-count" title="Remove dataset from the current project"

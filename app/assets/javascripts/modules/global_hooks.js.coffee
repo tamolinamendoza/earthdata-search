@@ -59,7 +59,7 @@ do (document
 
   $(document).on 'mouseover', 'a.add-to-project', (e) ->
     tooltip = $('.add-to-project-tooltip')
-    tooltip.css('left', $(this).offset().left + 23)
+    tooltip.css('left', $(this).offset().left + 28)
     tooltip.css('top', $(this).offset().top)
     tooltip.removeClass('hide')
 
