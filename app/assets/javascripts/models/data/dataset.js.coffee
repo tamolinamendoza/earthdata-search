@@ -57,6 +57,7 @@ ns.Dataset = do (ko
       @detailsLoaded = ko.observable(false)
 
       @timeRange = @computed(@_computeTimeRange, this, deferEvaluation: true)
+      @spatial = @computed(@_computeSpatial, this, deferEvaluation: true)
       @granuleDescription = @computed(@_computeGranuleDescription, this, deferEvaluation: true)
 
       @visible = ko.observable(false)
@@ -79,6 +80,16 @@ ns.Dataset = do (ko
       if @hasAtomData()
         result = dateUtil.timeSpanToIsoDate(@time_start, @time_end)
       (result || "Unknown")
+
+    _computeSpatial: ->
+      if @boxes?
+        "Bounding Rectangles: (" + @boxes[0] + (if @boxes.length > 1 then ") ..." else ")")
+      else if @points?
+        "Points: (" + @points[0] + (if @points.length > 1 then ") ..." else ")")
+      else if @polygons?
+        "Polygons: (" + @polygons[0] + (if @polygons.length > 1 then ") ..." else ")")
+      else if @lines?
+        "Lines: (" + @lines[0] + (if @lines.length > 1 then ") ..." else ")")
 
     _computeGranuleDescription: ->
       result = null
@@ -132,6 +143,7 @@ ns.Dataset = do (ko
     fromJson: (jsonObj) ->
       @json = jsonObj
 
+      console.log jsonObj
       attributes = jsonObj.searchable_attributes
       if attributes && @granuleQueryLoaded()
         @granuleQuery.attributes.definitions(attributes)

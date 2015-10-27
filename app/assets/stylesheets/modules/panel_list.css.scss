@@ -12,6 +12,8 @@ $panel-list-thumbnail-size: $panel-list-item-height - 61px;
   min-height: $panel-list-item-height;
   font-size: .8em;
   position: relative;
+  z-index: 500;
+  overflow: hidden;
 
   &:first-child {
     margin-top: 0;
@@ -172,12 +174,37 @@ $panel-list-thumbnail-size: $panel-list-item-height - 61px;
 
 .badge-collection {
   @include background(image-url("collection-icon.png"));
-  height: 29px;
-  width: 29px;
+  height: 16px;
+  width: 16px;
   background-size: contain;
   background-repeat: no-repeat;
-  margin-left: 8px;
-  padding-left: 20px;
+  float: left;
+  position: absolute;
+  margin-left: 6px;
+}
+
+.badge-granule {
+  @include background(image-url("granule-icon.png"));
+  height: 16px;
+  width: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 50px;
+  margin-top: 2px;
+}
+
+.flyout-granule-count-container {
+  float: right;
+//  right: 40px;
+}
+
+.granule-count {
+  float: left;
+  position: absolute;
+  margin-left: 20px;
+  margin-top: 1px;
+  font-size: 12px;
 }
 
 .collapsed-title {
@@ -189,6 +216,16 @@ $panel-list-thumbnail-size: $panel-list-item-height - 61px;
   top: 6px;
   left: 33px;
   position: absolute;
+  font-size: 12px;
+}
+
+.flyout-title {
+  font-size: 14px;
+  text-overflow: ellipsis;
+  width: 195px;
+  white-space: nowrap;
+  overflow: hidden;
+  float: left;
 }
 
 .panel-header-toggle {
@@ -223,9 +260,18 @@ $panel-list-thumbnail-size: $panel-list-item-height - 61px;
   margin-left: 4px;
 }
 
-.panel-list-item-actions {
+.panel-list-item-actions-container {
+  width: 29px;
+  height: 116px;
+  background-color: #191a1b;
+  right: 0;
+  top: 0;
   position: absolute;
   margin-top: 29px;
+}
+
+.panel-list-item-actions {
+  position: absolute;
   right: 0;
   top: 0;
 
@@ -286,7 +332,7 @@ $panel-list-thumbnail-size: $panel-list-item-height - 61px;
 .panel-list-item-header {
   height: 29px;
   background-color: #292c2d;
-  padding: .5em;
+  padding: 5px;
 
   h5 {
     margin: 0;
@@ -315,23 +361,43 @@ $panel-list-thumbnail-size: $panel-list-item-height - 61px;
 
 .detail-flyout {
   position: fixed;
-  float: right;
-  z-index: 999;
-  left: 230px;
-  width: 400px;
+//  float: right;
+  z-index: -1;
+  left: 270px;
+  width: 270px;
+  height: 145px;
   font-size: .8em;
-  padding: 1em;
-  background-color: #0c0c0c;
+  background-color: rgba(0, 0, 0, .95);
   color: #fff;
 
   h4 {
-    margin: 0 0 .5em;
+    margin: 0 0 5px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: normal;
+    padding-left: 10px;
   }
 }
 
-.panel-list-footer {
-  background: #2A2C2E;
-  position: absolute;
-  bottom: 0;
+
+
+.detail-flyout-content {
+  padding-left: 10px;
+  font-size: 10px;
+}
+
+.flyout-header {
   width: 100%;
+  height: 29px;
+  background-color: #292c2d;
+}
+
+.with-border {
+  border-left: 5px solid rgba(20, 21, 22, .4);
+}
+
+.mini-map {
+  width: 241px;
+  height: $panel-list-item-height - 30px;
+  background-color: #ed009d;
 }

@@ -1,6 +1,7 @@
             <li data-bind="click: $root.ui.datasetsList.focusDataset, css: {'master-overlay-forward': has_granules, 'master-overlay-hide-parent': has_granules}"
                 class="panel-list-item"<%=raw ' draggable="true"' if is_project %>>
 
+              <div>
               <div class="panel-list-item-header">
                 <span class="active-indicator"></span>
                 <span class="badge-collection"></span>
@@ -10,63 +11,86 @@
                     <i class="fa fa-chevron-circle-right"></i>
                   </a>
                 </span>
-                <div class="detail-flyout hide" data-bind="attr:{id: id + '-flyout'}">
-                  <p>test1</p>
-                  <p>test2</p>
-                  <p>test3</p>
-                  <p>test4</p>
-                  <p>test5</p>
-                </div>
               </div>
-
+              <div class="mini-map"></div>
+              <div class="detail-flyout hide" data-bind="attr:{id: id + '-flyout'}">
+                <div class="panel-list-item-header with-border">
+                  <span class="flyout-title" data-bind="text: short_name"></span>
+                  <!-- ko if: has_granules -->
+                    <div class="flyout-granule-count-container badge-granule">
+                      <span class="granule-count" data-bind="text: granule_count"></span>
+                    </div>
+                  <!-- /ko -->
+                </div>
+                <h4 class="detail-flyout-title"><!-- ko text: dataset_id --><!-- /ko --></h4>
+                <p class="detail-flyout-content">
+                  <i class="fa fa-crop"></i>
+                  <span data-bind="text: spatial"></span>
+                </p>
+                <p class="detail-flyout-content">
+                  <i class="fa fa-clock-o"></i>
+                  <span data-bind="text: timeRange"></span>
+                </p>
+                <p class="detail-flyout-content">
+                  <span><strong>Archive Center: </strong></span>
+                  <span data-bind="text: archive_center"></span>
+                </p>
+                <p class="detail-flyout-content">
+                  <span><strong>Data Center: </strong></span>
+                  <span  data-bind="text: data_center"></span>
+                </p>
+              </div>
 
               <% if is_project %>
               <div class="panel-list-drag-handle"></div>
               <% end %>
 
-              <div class="panel-list-item-actions">
-                <!-- ko if: has_granules -->
-                <a href="#" class="button icon-button" title="View dataset" data-bind="visible: !visible(), click: $root.datasets.toggleVisibleDataset">
-                  <i class="fa fa-eye"></i>
-                </a>
-                <a href="#" class="button icon-button button-active" title="Hide dataset" data-bind="visible: visible(), click: $root.datasets.toggleVisibleDataset">
-                  <i class="fa fa-eye"></i>
-                </a>
-                <!-- /ko -->
-                <a href="#" class="button icon-button add-to-project" data-pulse="#project-count"
-                   class="button icon-button add-to-project" data-pulse="#project-count" data-bind="visible: !$root.project.hasDataset($data), click: $root.ui.projectList.toggleDataset">
-                  <i class="fa fa-plus-circle"></i>
-                </a>
-                <a href="#" class="button icon-button button-active" data-pulse="#project-count" title="Remove dataset from the current project"
-                   data-bind="visible: $root.project.hasDataset($data), click: $root.ui.projectList.toggleDataset">
-                  <i class="fa fa-minus-circle"></i>
-                </a>
-                <a href="#" class="button icon-button master-overlay-forward" data-master-overlay-forward="Datasets" data-bind="click: $parent.ui.datasetsList.showDatasetDetails" title="View dataset details">
-                  <i class="fa fa-info-circle"></i>
-                </a>
-                <% if is_project %>
-                  <a href="#" class="button icon-button" title="Retrieve data" data-bind="click: $root.ui.projectList.loginAndDownloadDataset">
-                    <i class="fa fa-download"></i>
-                  </a>
+              <div class="panel-list-item-actions-container">
+                <div class="panel-list-item-actions">
                   <!-- ko if: has_granules -->
-                  <a href="#" data-bind="visible: !$root.project.isSearchingGranules($data), click: $root.ui.projectList.showFilters, css: {'button-highlighted': granuleFiltersApplied()}" class="button icon-button master-overlay-hide-parent master-overlay-show-secondary" title="Show granule filters">
-                    <i class="fa fa-edit"></i>
+                  <a href="#" class="button icon-button" title="View dataset" data-bind="visible: !visible(), click: $root.datasets.toggleVisibleDataset">
+                    <i class="fa fa-eye"></i>
                   </a>
-                  <a href="#" data-bind="visible: $root.project.isSearchingGranules($data), click: $root.ui.projectList.hideFilters, css: {'button-highlighted': granuleFiltersApplied()}" class="button icon-button button-active master-overlay-hide-parent master-overlay-hide-secondary" title="Hide granule filters">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                  <!-- /ko -->
-                  <!-- ko ifnot: has_granules -->
-                  <a href="#" class="button icon-button button-disabled" title="No granules">
-                    <i class="fa fa-edit"></i>
+                  <a href="#" class="button icon-button button-active" title="Hide dataset" data-bind="visible: visible(), click: $root.datasets.toggleVisibleDataset">
+                    <i class="fa fa-eye"></i>
                   </a>
                   <!-- /ko -->
-                <% end %>
-                <!-- ko if: $root.ui.datasetsList.canQueryDatasetSpatial($data) -->
-                <a href="#" class="button icon-button" title="Search using this dataset's location"
-                   data-bind="css: {'button-active': $root.query.spatial() == spatial_constraint()}, click: $root.ui.datasetsList.toggleQueryDatasetSpatial">
-                  <i class="fa fa-map-marker"></i>
-                </a>
-                <!-- /ko -->
+                  <a href="#" class="button icon-button add-to-project" data-pulse="#project-count"
+                     class="button icon-button add-to-project" data-pulse="#project-count" data-bind="visible: !$root.project.hasDataset($data), click: $root.ui.projectList.toggleDataset">
+                    <i class="fa fa-plus-circle"></i>
+                  </a>
+                  <a href="#" class="button icon-button button-active" data-pulse="#project-count" title="Remove dataset from the current project"
+                     data-bind="visible: $root.project.hasDataset($data), click: $root.ui.projectList.toggleDataset">
+                    <i class="fa fa-minus-circle"></i>
+                  </a>
+                  <a href="#" class="button icon-button master-overlay-forward" data-master-overlay-forward="Datasets" data-bind="click: $parent.ui.datasetsList.showDatasetDetails" title="View dataset details">
+                    <i class="fa fa-info-circle"></i>
+                  </a>
+                  <% if is_project %>
+                    <a href="#" class="button icon-button" title="Retrieve data" data-bind="click: $root.ui.projectList.loginAndDownloadDataset">
+                      <i class="fa fa-download"></i>
+                    </a>
+                    <!-- ko if: has_granules -->
+                    <a href="#" data-bind="visible: !$root.project.isSearchingGranules($data), click: $root.ui.projectList.showFilters, css: {'button-highlighted': granuleFiltersApplied()}" class="button icon-button master-overlay-hide-parent master-overlay-show-secondary" title="Show granule filters">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a href="#" data-bind="visible: $root.project.isSearchingGranules($data), click: $root.ui.projectList.hideFilters, css: {'button-highlighted': granuleFiltersApplied()}" class="button icon-button button-active master-overlay-hide-parent master-overlay-hide-secondary" title="Hide granule filters">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <!-- /ko -->
+                    <!-- ko ifnot: has_granules -->
+                    <a href="#" class="button icon-button button-disabled" title="No granules">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <!-- /ko -->
+                  <% end %>
+                  <!-- ko if: $root.ui.datasetsList.canQueryDatasetSpatial($data) -->
+                  <a href="#" class="button icon-button" title="Search using this dataset's location"
+                     data-bind="css: {'button-active': $root.query.spatial() == spatial_constraint()}, click: $root.ui.datasetsList.toggleQueryDatasetSpatial">
+                    <i class="fa fa-map-marker"></i>
+                  </a>
+                  <!-- /ko -->
+                </div>
+              </div>
               </div>
             </li>

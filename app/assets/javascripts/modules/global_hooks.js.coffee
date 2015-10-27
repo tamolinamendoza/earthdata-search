@@ -68,12 +68,15 @@ do (document
 
   $(document).on 'click', 'a.info-icon', (e) ->
     flyout = $("#" + this.id + "-flyout")
+    flyout.css('top', $(this).offset().top)
     if flyout.hasClass('hide')
-      flyout.css('left', $(this).offset().left + 28)
-      flyout.css('top', $(this).offset().top)
-      flyout.removeClass('hide')
+      flyout.toggleClass('hide')
+      $(this).find($(".fa")).removeClass("fa-chevron-circle-right").addClass("fa-chevron-circle-left")
+      flyout.animate({left: $("#" + this.id).offset().left + 32}, config.defaultAnimationDurationMs)
     else
-      flyout.addClass('hide')
+      flyout.animate {left: $("#" + this.id).offset().left - 237}, config.defaultAnimationDurationMs, ->
+        flyout.toggleClass('hide')
+      $(this).find($(".fa")).removeClass("fa-chevron-circle-left").addClass("fa-chevron-circle-right")
 
   $(document).ready ->
     map = $('#map').data('map')?.map
